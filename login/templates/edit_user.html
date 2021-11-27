@@ -1,0 +1,54 @@
+{% extends "base1.html" %}
+{% block content1 %}
+
+<div class="container mt-5 shadow-lg p-3 bg-light rounded">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row" >
+            {% if create_request_status %}
+                <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="create_user">create user</button>
+            {% endif %}
+            {% if not create_request_status %}
+                <button class="btn btn-light col-sm font-weight-bold" name="create_user">create user</button>
+            {% endif %}
+            {% if edit_request_status %}
+                <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="edit_user">edit user</button>
+            {% endif %}
+            {% if not edit_request_status %}
+                <button class="btn btn-light col-sm font-weight-bold" name="edit_user">edit user</button>
+            {% endif %}
+        </div>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}           
+    
+                <div class="table shadow-lg mt-2 bg-light ">
+            <table class="table" style="height: 100px;">
+                <tr>                                     
+                <th>Email Id</th>                
+                <th>Password</th>
+                <th>Department</th>
+                <th>Last Updated</th>
+                <th>Status</th>
+                <th>Access</th>     
+                <th></th>            
+                </tr>   
+                {% for p in user %}             
+                    <tr>                                            
+                        <td>{{p.email}}</td>                      
+                        <td>{{p.password}}</td>
+                        <td>{{p.department}}</td> 
+                        <td>{{p.updated_date}}</td>     
+                        <td>{{p.status}}</td>    
+                        <td>{{p.access}}</td>                
+                        <td><button type="submit" value={{p.id}} name="edit" class="btn text-white" style="background-color:  #0059b3"">edit</button></td>
+                    </tr>
+                {% endfor %}             
+            </table>
+        </div>
+        
+        
+    </form>
+
+{% endblock content1 %}

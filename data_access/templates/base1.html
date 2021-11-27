@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% if title %}
+        <title>{{title}}</title>    
+    {% else %}
+        <title>{title}</title>
+    {% endif %}
+    
+  </head>
+  <body style="background-color: #e6f2ff;">
+    {% load  static %}
+
+    <header>
+      <nav class="navbar navbar-expand-lg" style="background-color:  #0059b3" >
+        <a class="navbar-brand text-white" href="#"><h4>99acres.com</h4></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="navbar-brand text-white" ><h3>POO Application Form</h3></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <nav class="navbar navbar-expand-lg " style="background-color:  #0059b3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav">
+            {% if email_id %}
+              <li class="nav-item">
+                <label class="text-white" style="background-color:  #0059b3">{{email_id}}</label>
+              </li>
+            {% endif %}
+            {% if department %}
+              <li class="nav-item">
+                <label class="text-white ml-3" style="background-color:  #0059b3">({{department}})</label>
+              </li>
+              {% endif %}
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <button class="btn ml-5" style="background-color:  #0059b3"><a class="nav-link text-white " href="/home">Home</a></button>
+            </li>
+            {% if manager_page %}
+              <li class="nav-item">
+                <button class="btn ml-5" style="background-color:  #0059b3"><a class="nav-link text-white " href="/login/admin_login">Manager Page</a></button>
+              </li>
+            {% endif %}
+            {% if upload_access %}
+              <li class="nav-item">
+                <button class="btn ml-5" style="background-color:  #0059b3"><a class="nav-link text-white " href="/documents/upload">Upload Data</a></button>
+              </li>
+            {% endif %}
+            {% if download_access %}
+              <li class="nav-item">
+                <button class="btn ml-5" style="background-color:  #0059b3"><a class="nav-link text-white " href="/documents/download">Download Data</a></button>
+              </li>
+            {% endif %}
+            <li class="nav-item">
+              <button class="btn ml-5" style="background-color:  #0059b3"><a class="nav-link text-white " href="/">Logout</a></button>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+    </header>
+  
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <script>alert("{{ message }}");window.location = '/login/documents'</script>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content1 %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+        

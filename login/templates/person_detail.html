@@ -1,0 +1,166 @@
+{% extends "base1.html" %}
+{% block content1 %}
+
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>
+
+<div class="container" >    
+    
+    <div class="form-row shadow-lg mt-4 p-3 rounded" style="background-color: #fff5e6;">
+        
+        <table class="table" style="background-color: burlywood">
+            <thead >
+            <tr style="background-color: #fff5e6;">                
+                <th></th>
+                <th></th>
+                <th></th>                
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><button onclick="goBack()" class="text-danger button close">
+                    <span aria-hidden="true">&times;</span>
+                </button></th>
+            </tr>
+            <tr>
+                <th>Profile Id</th>
+                <th>Property Id</th>
+                <th>Department</th>                
+                <th>Action Date</th>
+                <th>Calling Status</th>
+                <th>Status</th>
+                <th>Company Name</th>
+                <th>Parameter Marked</th>                                    
+            </tr>
+            </thead>
+            {% for d in dataset %}
+                <tr>
+                    <td>{{person_detail.profile_id}}</td>
+                    <td>{{person_detail.property_id1}}</td>
+                    <td>{{person_detail.department_name}}</td>
+                    <td>{{d.Action_Date}}</td>
+                    <td>{{d.Calling_Status}}</td>
+                    <td>{{d.Status}}</td>
+                    <td>{{d.Company_Name}}</td>
+                    <td>{{d.Parameter_Marked}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="form-group col-md-6">
+            <footer class="blockquote-footer">Documents</footer><br>
+            <form method='post'  enctype='multipart/form-data' target="_blank">
+                {% csrf_token %}
+                {% for file in all_files%}
+                    <ul>
+                        <li><button class="btn btn-outline-secondary"name="file_link" value={{file}} >{{file}}</button></li>
+                    </ul>
+                {% endfor %}
+            </form>
+        </div>
+        
+        
+        <div class="form-group col-md-6">
+            
+            <table class="table" style="background-color: burlywood">
+                <tr>
+                    <th></th>
+                    <th>As Per Prop Admin</th>
+                    <th>As Per Document</th>
+                    <th>Similarity %</th>
+                </tr>
+                <tr>
+                    <td><strong>Name</strong></td>
+                    <td>{{person_detail.name_admin}}</td>
+                    <td>{{person_detail.name_document}}</td>
+                    <td>{{person_detail.name_similarity_percent}} %</td>
+                </tr>
+                <tr>
+                    <td><strong>Locality</strong></td>
+                    <td>{{person_detail.locality_admin}}</td>
+                    <td>{{person_detail.locality_document}}</td>
+                    <td>{{person_detail.locality_similarity_percent}} %</td>
+                </tr>
+                <tr>
+                    <td><strong>Email</strong></td>
+                    <td>{{person_detail.calling_email_id}}</td>
+                    <td></td>
+                </tr>
+                
+            </table>          
+        </div>        
+        </form>
+        <div>
+            <form method='post' >
+                {% csrf_token %}
+
+                {% if rejection %}
+                    <div class="mt-2">
+                        <input type="text" class="form-control input-lg" style="width: 100%;" name="rejection_comment" placeholder="Comment *" required>
+                    </div>
+                {% endif %}
+                
+                {% if confirmation %}
+                    <div class="mt-3" style="width: 100%;">
+                        <input type="checkbox" name="confirmation" required> Do you wish to submit ?
+                    </div>
+                {% endif %}
+
+                <div class="mt-4">   
+                    {% if pending_request_status %} 
+                        <button type="submit" class="btn text-white" style="background-color:  green" name="approve">Approve</button>
+                        <button type="submit" class="btn text-white ml-5" style="background-color:  red" name="reject">Reject</button>
+                        <button type="submit" class="btn text-white ml-5" style="background-color: goldenrod" name="hold">Hold</button>
+                    {% endif %}
+
+                    {% if reject_request_status %} 
+                        <button type="submit" class="btn text-white" style="background-color:  green" name="approve">Approve</button>
+                        <button type="submit" class="btn text-white ml-5" style="background-color:  goldenrod" name="hold">Hold</button>
+                    {% endif %}
+
+                    {% if hold_request_status %} 
+                        <button type="submit" class="btn text-white" style="background-color:  green" name="approve">Approve</button>
+                        <button type="submit" class="btn text-white ml-5" style="background-color:  red" name="reject">Reject</button>
+                    {% endif %}
+
+                </div>
+            </form>
+        </div>
+        
+        
+        <table class="table mt-2">
+            <tr>
+                <th>Comment</th>
+                <th>Team</th>
+                <th>Email</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            {% for comment in all_comments %}
+                {% if comment.comment %}
+                <tr>
+                    <td>{{comment.comment}}</td>
+                    <td>Calling</td>
+                    <td>{{comment.calling_email_id}}</td>
+                    <td>{{comment.updated_date}}</td>
+                    <td>{{comment.status}}</td>
+                </tr>
+                {% endif %}
+                {% if comment.spam_comment %}
+                <tr>
+                    <td>{{comment.spam_comment}}</td>
+                    <td>Spam</td>
+                    <td>{{comment.spam_email_id}}</td>
+                    <td>{{comment.updated_date}}</td>
+                    <td>{{comment.status}}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        
+    </div>    
+</div>
+{% endblock content1 %}
+

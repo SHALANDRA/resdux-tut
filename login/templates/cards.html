@@ -1,0 +1,145 @@
+{% extends "base1.html" %}
+{% block content1 %}
+<div class="container">
+
+    {% if upload_option %}
+    <center>
+        <form class="mt-3" method='post' enctype='multipart/form-data'>
+            {% csrf_token %}
+            <h4 class="text-center text-capitalize font-italic">Upload the documents to change status</h4><br>
+            <input type="file" name="document" multiple />
+            <button type="submit" name="upload_status" class="btn text-white" style="background-color:  #0059b3">Submit</button>
+        </form>
+    </center>
+    {% endif %}
+    
+    <div class="mt-3 p-3" >        
+        <form method="post">
+            {% csrf_token %}
+            <div class="row" >
+                {% if pending_highlight %}
+                    <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="pending">Pending {{pending_count}}</button>
+                {% endif %}
+                {% if not pending_highlight %}
+                    <button class="btn btn-light col-sm font-weight-bold" name="pending">Pending {{pending_count}}</button>
+                {% endif %}
+                {% if hold_highlight %}
+                    <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="hold">Hold {{hold_count}}</button>
+                {% endif %}
+                {% if not hold_highlight %}
+                    <button class="btn btn-light col-sm font-weight-bold" name="hold">Hold {{hold_count}}</button>
+                {% endif %}
+                {% if reject_highlight %}
+                    <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="reject">Reject {{reject_count}}</button>
+                {% endif %}
+                {% if not reject_highlight %}
+                    <button class="btn btn-light col-sm font-weight-bold" name="reject">Reject {{reject_count}}</button>
+                {% endif %}
+                {% if approve_highlight %}
+                    <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="approve">Approve {{approve_count}}</button>
+                {% endif %}
+                {% if not approve_highlight %}
+                    <button class="btn btn-light col-sm font-weight-bold" name="approve">Approve {{approve_count}}</button>
+                {% endif %}
+            </div>
+        </form>
+        {% if person %}
+            <form method="post">
+                {% csrf_token %}           
+            
+                {% for p in person %}
+                <div class="table shadow-lg mt-2 bg-light ">
+                    <table class="table" style="height: 100px;">
+                        <tr>                                     
+                        <th>Property Id</th>                
+                        <th>Profile Id</th>
+                        <th>Department</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th></th>                                 
+                        </tr>                
+                        <tr>                                            
+                            <td>{{p.property_id1}}</td>                      
+                            <td>{{p.profile_id}}</td>
+                            <td>{{p.department_name}}</td> 
+                            <td>{{p.currentdate}}</td>
+                            <td>{{p.updated_date}}</td>                         
+                            <td><button type="submit" value={{p.id}} name="view_document" class="btn text-white" style="background-color:  #0059b3"">View Documents</button></td>
+                        </tr>             
+                    </table>
+                    <table class="table">
+                        {% if p.comment %}
+                        <tr>
+                            <td class="float-left"><strong>Calling Team</strong></td>
+                            <td class="float-left">{{p.comment}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endif %}
+                        {% if p.spam_comment %}
+                            <tr>
+                                <td class="float-left"><strong>Spam Team</strong></td>
+                                <td class="float-left">{{p.spam_comment}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                </div>
+                
+                {% endfor %}
+            </form>
+        {% endif %}
+        {% if person_red %}
+            <form method="post">
+                {% csrf_token %}           
+            
+                {% for p in person_red %}
+                <table class="table shadow-lg mt-2 bg-light "  style="height: 100px;">
+                    <tr style="background-color:  #ff3333">                                     
+                        <th>Property Id</th>                
+                        <th>Profile Id</th>
+                        <th>Department</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th></th>                                 
+                    </tr>                
+                    <tr style="background-color:  #ff3333">                                            
+                        <td>{{p.property_id1}}</td>                      
+                        <td>{{p.profile_id}}</td>
+                        <td>{{p.department_name}}</td> 
+                        <td>{{p.currentdate}}</td>   
+                        <td>{{p.updated_date}}</td>                     
+                        <td><button type="submit" value={{p.id}} name="view_document" class="btn text-white" style="background-color:  #0059b3">View Documents</button></td>
+                    </tr>             
+                    {% if p.comment %}
+                        <tr style="background-color:  #ff3333">
+                            <td><strong>Calling Team</strong></td>
+                            <td>{{p.comment}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endif %}
+                    {% if p.spam_comment %}
+                        <tr style="background-color: #ff3333">
+                            <td><strong>Spam Team</strong></td>
+                            <td>{{p.spam_comment}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    {% endif %}
+                </table>
+                {% endfor %}
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock content1 %}

@@ -1,0 +1,97 @@
+{% extends "base1.html" %}
+{% block content1 %}
+
+<div class="rounded">
+    <form>
+    {% csrf_token %}
+
+  <table class="table" border="2" >
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">Disposition</th>
+      <th scope="col">prop_id</th>
+<th scope="col">profile_id</th>
+<th scope="col">client_name</th>
+<th scope="col">mobile</th>
+<th scope="col">confirm_address</th>
+<th scope="col">preference</th>
+<th scope="col">locality_name</th>
+<th scope="col">email</th>
+<th scope="col">city_name</th>
+<th scope="col">parent_city</th>
+<th scope="col">price</th>
+<th scope="col">paid</th>
+<th scope="col">bedroom_num</th>
+<th scope="col">RES_COM</th>
+<th scope="col">property_posting_date</th>
+<th scope="col">caller_name</th>
+
+    </tr>
+  </thead>
+  <tbody>
+   {% if dataframe %}
+  {% for itr_data in dataframe %}
+    <tr>
+
+   <td>
+    <form action="{% url 'updatedata' itr_data.id %}"  method="POST" class="d-inline">
+      {% csrf_token %}
+      <input type="hidden"  value="{{itr_data.id}}" name="uniqueid" id="uniqueid"  class="btn btn-warning btn-sm" />
+      <input type="submit"  class="btn btn-warning btn-sm" value="Edit"/>
+      </form>
+      </td>
+    <td>{{itr_data.id}}</td>
+    <td>{{itr_data.Disposition}}</td>
+   <td>{{itr_data.prop_id}}</td>
+<td>{{itr_data.profile_id}}</td>
+<td>{{itr_data.client_name}}</td>
+<td>{{itr_data.mobile}}</td>
+<td>{{itr_data.confirm_address}}</td>
+<td>{{itr_data.preference}}</td>
+<td>{{itr_data.locality_name}}</td>
+<td>{{itr_data.email}}</td>
+<td>{{itr_data.city_name}}</td>
+<td>{{itr_data.parent_city}}</td>
+<td>{{itr_data.price}}</td>
+<td>{{itr_data.paid}}</td>
+<td>{{itr_data.bedroom_num}}</td>
+<td>{{itr_data.RES_COM}}</td>
+<td>{{itr_data.property_posting_date}}</td>
+<td>{{itr_data.caller_name}}</td>
+
+      
+    </tr>
+    {% endfor %}
+    {% endif %}
+  </tbody>
+</table>
+
+  
+ <div class="pagination">
+        <span class="step-links">
+            {% if dataframe.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ dataframe.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ contacts.number }} of {{ dataframe.paginator.num_pages }}.
+            </span>
+    
+            {% if dataframe.has_next %}
+                <a href="?page={{ dataframe.next_page_number }}">next</a>
+                <a href="?page={{ dataframe.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+  
+</form>
+    
+
+  </div>
+
+
+{% endblock content1 %}

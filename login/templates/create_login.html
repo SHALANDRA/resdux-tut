@@ -1,0 +1,120 @@
+{% extends "base1.html" %}
+{% block content1 %}
+
+<div class="container mt-5 shadow-lg p-3 bg-light rounded">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row" >
+            {% if create_request_status %}
+                <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="create_user">create user</button>
+            {% endif %}
+            {% if not create_request_status %}
+                <button class="btn btn-light col-sm font-weight-bold" name="create_user">create user</button>
+            {% endif %}
+            {% if edit_request_status %}
+                <button class="btn text-white col-sm font-weight-bold" style="background-color:  #0059b3" name="edit_user">edit user</button>
+            {% endif %}
+            {% if not edit_request_status %}
+                <button class="btn btn-light col-sm font-weight-bold" name="edit_user">edit user</button>
+            {% endif %}
+        </div>
+    </form>
+
+    <footer class="blockquote-footer mt-2">Create New User</footer><br>
+    <form method="POST">
+        {% csrf_token %}
+        `<table class="table">
+            {% if user_details %}
+                <tr>                    
+                    <td>Email Id <cite style="color:  crimson">*</cite></td>
+                    <td><input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" value={{user_details.email}} required></td>
+                </tr> 
+                <tr>              
+                    <td>Password <cite style="color:  crimson">*</cite></td>
+                    <td><input type="password" class="form-control" id="exampleInputPassword1" name="password" value={{user_details.email}} required></td>
+                </tr>
+            {% endif %}
+            {% if not user_details %}
+                <tr>                        
+                    <td>Email Id <cite style="color:  crimson">*</cite></td>
+                    <td><input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required></td>
+                </tr> 
+                <tr>              
+                    <td>Password <cite style="color:  crimson">*</cite></td>
+                    <td><input type="password" class="form-control" id="exampleInputPassword1" name="password" required></td>
+                </tr>
+                
+            {% endif %}
+
+            <tr>              
+                <td>Renter Password <cite style="color:  crimson">*</cite></td>
+                <td><input type="password" class="form-control" id="exampleInputPassword1" name="renter_password" required></td>
+            </tr>
+
+            <tr>         
+                <td>Department<cite style="color:  crimson">*</cite></td>
+                <td>
+                    <select id="inputState" class="form-control" name="department">
+                        <option selected value="Spam_Team">Spam_Team</option>
+                        <option value="Calling_Team">Calling_Team</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>         
+                <td>Access<cite style="color:  crimson">*</cite></td>
+                <td>
+                    <select id="inputState" class="form-control" name="access" >
+                        <option selected value="all">All</option>
+                        <option value="upload">Upload</option>
+                        <option value="download">Download</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>         
+                <td>Status<cite style="color:  crimson">*</cite></td>
+                <td>
+                    <select id="inputState" class="form-control" name="status">
+                        <option selected value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </td>
+            </tr>
+        
+            <tr>
+                <td></td>
+                <td>                    
+                    <button type="submit" name="create_login" class="btn text-white" style="background-color:  #0059b3">Create</button>
+                </td>
+            </tr>           
+          </table>
+      </form>
+            
+   
+    {% if login_created %}
+        <div class="alert alert-success mt-5">
+            <strong>Login Created</strong>
+        </div>
+    {% endif %}
+
+    {% if alreay_exist %}
+        <div class="alert alert-danger mt-5">
+            <strong>User Already Exists</strong>
+        </div>
+    {% endif %}
+
+    {% if password_not_match %}
+        <div class="alert alert-danger mt-5">
+            <strong>Passwords don't match</strong>
+        </div>
+    {% endif %}
+
+    <footer class="blockquote-footer " style="color : red";>Password should be of length less than 20</footer>
+
+    
+
+  </div>
+
+
+{% endblock content1 %}
